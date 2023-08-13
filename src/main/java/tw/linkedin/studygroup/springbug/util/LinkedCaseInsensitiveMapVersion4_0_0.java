@@ -22,6 +22,7 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
+ * <a href="https://github.com/spring-projects/spring-framework/blob/4.0.x/spring-core/src/main/java/org/springframework/util/LinkedCaseInsensitiveMap.java">...</a>
  * {@link LinkedHashMap} variant that stores String keys in a case-insensitive
  * manner, for example for key-based access in a results table.
  *
@@ -34,7 +35,7 @@ import java.util.Map;
  * @since 3.0
  */
 @SuppressWarnings("serial")
-public class BugMap<V> extends LinkedHashMap<String, V> {
+public class LinkedCaseInsensitiveMapVersion4_0_0<V> extends LinkedHashMap<String, V> {
 
     private final Map<String, String> caseInsensitiveKeys;
 
@@ -43,9 +44,9 @@ public class BugMap<V> extends LinkedHashMap<String, V> {
 
     /**
      * Create a new LinkedCaseInsensitiveMap for the default Locale.
-     * @see java.lang.String#toLowerCase()
+     * @see String#toLowerCase()
      */
-    public BugMap() {
+    public LinkedCaseInsensitiveMapVersion4_0_0() {
         this(null);
     }
 
@@ -53,9 +54,9 @@ public class BugMap<V> extends LinkedHashMap<String, V> {
      * Create a new LinkedCaseInsensitiveMap that stores lower-case keys
      * according to the given Locale.
      * @param locale the Locale to use for lower-case conversion
-     * @see java.lang.String#toLowerCase(java.util.Locale)
+     * @see String#toLowerCase(Locale)
      */
-    public BugMap(Locale locale) {
+    public LinkedCaseInsensitiveMapVersion4_0_0(Locale locale) {
         super();
         this.caseInsensitiveKeys = new HashMap<String, String>();
         this.locale = (locale != null ? locale : Locale.getDefault());
@@ -66,9 +67,9 @@ public class BugMap<V> extends LinkedHashMap<String, V> {
      * with the given initial capacity and stores lower-case keys according
      * to the default Locale.
      * @param initialCapacity the initial capacity
-     * @see java.lang.String#toLowerCase()
+     * @see String#toLowerCase()
      */
-    public BugMap(int initialCapacity) {
+    public LinkedCaseInsensitiveMapVersion4_0_0(int initialCapacity) {
         this(initialCapacity, null);
     }
 
@@ -78,9 +79,9 @@ public class BugMap<V> extends LinkedHashMap<String, V> {
      * to the given Locale.
      * @param initialCapacity the initial capacity
      * @param locale the Locale to use for lower-case conversion
-     * @see java.lang.String#toLowerCase(java.util.Locale)
+     * @see String#toLowerCase(Locale)
      */
-    public BugMap(int initialCapacity, Locale locale) {
+    public LinkedCaseInsensitiveMapVersion4_0_0(int initialCapacity, Locale locale) {
         super(initialCapacity);
         this.caseInsensitiveKeys = new HashMap<String, String>(initialCapacity);
         this.locale = (locale != null ? locale : Locale.getDefault());
@@ -144,7 +145,7 @@ public class BugMap<V> extends LinkedHashMap<String, V> {
      * to lower-case according to this Map's Locale.
      * @param key the user-specified key
      * @return the key to use for storing
-     * @see java.lang.String#toLowerCase(java.util.Locale)
+     * @see String#toLowerCase(Locale)
      */
     protected String convertKey(String key) {
         return key.toLowerCase(this.locale);

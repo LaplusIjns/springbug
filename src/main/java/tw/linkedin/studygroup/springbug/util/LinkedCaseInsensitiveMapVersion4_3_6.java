@@ -17,14 +17,10 @@
 package tw.linkedin.studygroup.springbug.util;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
+ * <a href="https://github.com/spring-projects/spring-framework/blob/4.3.x/spring-core/src/main/java/org/springframework/util/LinkedCaseInsensitiveMap.java">...</a>
  * {@link LinkedHashMap} variant that stores String keys in a case-insensitive
  * manner, for example for key-based access in a results table.
  *
@@ -38,7 +34,7 @@ import java.util.Set;
  * @param <V> the value type
  */
 @SuppressWarnings("serial")
-public class FixedMap<V> implements Map<String, V>, Serializable, Cloneable {
+public class LinkedCaseInsensitiveMapVersion4_3_6<V> implements Map<String, V>, Serializable, Cloneable {
 
     private final LinkedHashMap<String, V> targetMap;
 
@@ -52,7 +48,7 @@ public class FixedMap<V> implements Map<String, V>, Serializable, Cloneable {
      * according to the default Locale (by default in lower case).
      * @see #convertKey(String)
      */
-    public FixedMap() {
+    public LinkedCaseInsensitiveMapVersion4_3_6() {
         this((Locale) null);
     }
 
@@ -62,7 +58,7 @@ public class FixedMap<V> implements Map<String, V>, Serializable, Cloneable {
      * @param locale the Locale to use for case-insensitive key conversion
      * @see #convertKey(String)
      */
-    public FixedMap(Locale locale) {
+    public LinkedCaseInsensitiveMapVersion4_3_6(Locale locale) {
         this(16, locale);
     }
 
@@ -73,7 +69,7 @@ public class FixedMap<V> implements Map<String, V>, Serializable, Cloneable {
      * @param initialCapacity the initial capacity
      * @see #convertKey(String)
      */
-    public FixedMap(int initialCapacity) {
+    public LinkedCaseInsensitiveMapVersion4_3_6(int initialCapacity) {
         this(initialCapacity, null);
     }
 
@@ -85,15 +81,15 @@ public class FixedMap<V> implements Map<String, V>, Serializable, Cloneable {
      * @param locale the Locale to use for case-insensitive key conversion
      * @see #convertKey(String)
      */
-    public FixedMap(int initialCapacity, Locale locale) {
+    public LinkedCaseInsensitiveMapVersion4_3_6(int initialCapacity, Locale locale) {
         this.targetMap = new LinkedHashMap<String, V>(initialCapacity) {
             @Override
             public boolean containsKey(Object key) {
-                return FixedMap.this.containsKey(key);
+                return LinkedCaseInsensitiveMapVersion4_3_6.this.containsKey(key);
             }
             @Override
             protected boolean removeEldestEntry(Map.Entry<String, V> eldest) {
-                boolean doRemove = FixedMap.this.removeEldestEntry(eldest);
+                boolean doRemove = LinkedCaseInsensitiveMapVersion4_3_6.this.removeEldestEntry(eldest);
                 if (doRemove) {
                     caseInsensitiveKeys.remove(convertKey(eldest.getKey()));
                 }
@@ -108,7 +104,7 @@ public class FixedMap<V> implements Map<String, V>, Serializable, Cloneable {
      * Copy constructor.
      */
     @SuppressWarnings("unchecked")
-    private FixedMap(FixedMap<V> other) {
+    private LinkedCaseInsensitiveMapVersion4_3_6(LinkedCaseInsensitiveMapVersion4_3_6<V> other) {
         this.targetMap = (LinkedHashMap<String, V>) other.targetMap.clone();
         this.caseInsensitiveKeys = (HashMap<String, String>) other.caseInsensitiveKeys.clone();
         this.locale = other.locale;
@@ -173,7 +169,7 @@ public class FixedMap<V> implements Map<String, V>, Serializable, Cloneable {
         if (map.isEmpty()) {
             return;
         }
-        for (Map.Entry<? extends String, ? extends V> entry : map.entrySet()) {
+        for (Entry<? extends String, ? extends V> entry : map.entrySet()) {
             put(entry.getKey(), entry.getValue());
         }
     }
@@ -211,8 +207,8 @@ public class FixedMap<V> implements Map<String, V>, Serializable, Cloneable {
     }
 
     @Override
-    public FixedMap<V> clone() {
-        return new FixedMap<V>(this);
+    public LinkedCaseInsensitiveMapVersion4_3_6<V> clone() {
+        return new LinkedCaseInsensitiveMapVersion4_3_6<V>(this);
     }
 
     @Override
@@ -237,7 +233,7 @@ public class FixedMap<V> implements Map<String, V>, Serializable, Cloneable {
      * Return the locale used by this {@code LinkedCaseInsensitiveMap}.
      * Used for case-insensitive key conversion.
      * @since 4.3.10
-     * @see #FixedMap(Locale)
+     * @see #LinkedCaseInsensitiveMapVersion4_3_6(Locale)
      * @see #convertKey(String)
      */
     public Locale getLocale() {
@@ -262,7 +258,7 @@ public class FixedMap<V> implements Map<String, V>, Serializable, Cloneable {
      * @return {@code true} for removing it, {@code false} for keeping it
      * @see LinkedHashMap#removeEldestEntry
      */
-    protected boolean removeEldestEntry(Map.Entry<String, V> eldest) {
+    protected boolean removeEldestEntry(Entry<String, V> eldest) {
         return false;
     }
 
